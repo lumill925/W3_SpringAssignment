@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bulma CSS 링크 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <link rel="stylesheet" href="./style.css">
+
+    <title>항해99 블로그</title>
+
+    <style>
+
+        a:focus {
+            outline: none !important;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* ------------------------------------ */
+
+        ul, li {
+            margin: 0px;
+            list-style-type: none;
+        }
+
+
+        /* ------------------------------------ */
+        input {
+            display: block;
+            outline: none;
+            border: none;
+        }
+
+        textarea {
+            display: block;
+            outline: none;
+            border: none;
+        }
+
+        textarea:focus, input:focus {
+            border-color: transparent !important;
+        }
+
+        /* ------------------------------------ */
+        button {
+            outline: none !important;
+            border: none;
+            background: transparent;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        iframe {
+            border: none !important;
+        }
+
+        #banner {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ------------------------------------*/
+
+        #header-title-login-user {
+            margin: auto 0;
+        }
+
+        #logout-win {
+            margin-top: 30px;
+            display: flex;
+            justify-content: right;
+        }
+
+        #login-win {
+            margin-top: 30px;
+            display: flex;
+            justify-content: right;
+        }
+
+        #signup-btn {
+            margin-left: 10px;
+        }
+
+        #my_form {
+            display: block;
+            margin-left: 10px;
+        }
+
+        /*//////////////////////////////////////////////////////////////////
+        [ Table ]*/
+
+        .limiter {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .container-table100 {
+            width: 100%;
+            background: #fff;
+
+        }
+
+        .wrap-table100 {
+            margin: 10px 0 100px;
+            /*min-width: 70%;*/
+
+        }
+
+        /*//////////////////////////////////////////////////////////////////
+        [ Table ]*/
+        .table100 {
+            background-color: #fff;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            font-weight: unset;
+            padding-right: 10px;
+        }
+
+        .column1 {
+            width: 33%;
+            padding-left: 40px;
+        }
+
+        .column2 {
+            width: 18%;
+        }
+
+        .column3 {
+            width: 22%;
+        }
+
+        .column4 {
+            width: 10%;
+        }
+
+
+
+
+
+        .table100-head th {
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+
+        .table100-body td {
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
+        /*==================================================================
+        [ Fix header ]*/
+
+
+        .table100-head {
+            width: 100%;
+            /*top: 0;*/
+            /*left: 0;*/
+        }
+
+        .table100-body {
+            max-height: 585px;
+            overflow: auto;
+        }
+
+
+        /*==================================================================
+        [ Ver1 ]*/
+
+        .table100.ver1 th {
+            font-size: 18px;
+            color: #fff;
+            line-height: 1.4;
+
+            background-color: darkslategray;
+        }
+
+        .table100.ver1 td {
+            font-size: 15px;
+            color: #808080;
+            line-height: 1.4;
+        }
+
+        .table100.ver1 .table100-body tr:nth-child(even) {
+            background-color: #f8f6ff;
+        }
+
+        /*---------------------------------------------*/
+
+        .table100.ver1 {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+            -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+            -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+        }
+
+
+        #modal_btn {
+            width: 100px;
+            margin: 50px auto 0;
+            display: block;
+
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            // HTML 문서를 로드할 때마다 실행합니다.
+            getMessages();
+        })
+
+        window.onload = function () {
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.querySelector('.is-cancel').addEventListener('click', offClick);
+            document.querySelector('.delete').addEventListener('click', offClick);
+        }
+
+        function onClick() {
+            document.querySelector('.modal').style.display ='block';
+        }
+        function offClick() {
+            document.querySelector('.modal').style.display = 'none';
+            window.location.reload();
+        }
+        function onClick_detail() {
+            document.getElementById('modal_detail').style.display = 'block';
+        }
+        function offClick_detail() {
+            document.getElementById('modal_detail').style.display = 'none';
+        }
+        function onClick_edit() {
+            document.getElementById('modal_edit').style.display = 'block';
+        }
+        function offClick_edit() {
+            document.getElementById('modal_edit').style.display = 'none';
+        }
+
+
+
+        // 메모를 불러와서 보여줍니다.
+        function getMessages() {
+            // $('#posting_list').empty();
+            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            $.ajax({
+                type: 'GET',
+                url: '/api/postings',
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        let message = response[i];
+                        let id = message['id'];
+                        let title = message['title']
+                        let username = message['username'];
+                        let password = message['password'];
+                        let modifiedAt = message['modifiedAt'];
+                        addHTML(id, title, username, modifiedAt);
+                    }
+                }
+            })
+        }
+        // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
+        function addHTML(id, title, username, modifiedAt) {
+            // 1. HTML 태그를 만듭니다.
+            let tempHtml = `<table>
+                                <tr class="row100 body" id="${id}-list">
+                                    <td class="cell100 column1" style="width: 33%" id="${id}-title"><a onclick="detail(${id})" id="detail_link">${title}</a></td>
+                                    <td class="cell100 column2" style="width: 18%" id="${id}-username">${username}</td>
+                                    <td class="cell100 column4" style="width: 22%" id="${id}-createdAt">${modifiedAt}</td>
+                                    <td class="cell100 column5" style="width: 10%">
+                                    <button class="button is-edit" id="${id}-edit" onclick="editOne('${id}')">편집</button>
+                                    </td>
+                                </tr>
+                          </table>`
+            // 2. #cards-box 에 HTML을 붙인다.
+            $('#posting_list').append(tempHtml);
+        }
+
+
+        // 메모를 생성합니다.
+        function writePost() {
+            // 1. 작성한 내용 가져오기
+            let title = $('#title').val();
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let contents = $('#contents').val();
+
+            //2. 입력값 확인
+            if (title == '' || username == '' || password == '' || contents =='') {
+                // alert 창 띄우기
+                alert("내용을 입력해주세요")
+                return;
+            }
+            // 3. 전달할 data JSON으로
+            let data = {'title': title, 'username': username, 'password': password, 'contents': contents};
+            // 4. POST /api/postings 에 data를 전달
+            $.ajax({
+                type: "POST",
+                url: "/api/postings",
+                contentType: "application/json", // JSON 형식으로 전달함을 알리기
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지가 성공적으로 작성되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+        // 포스팅 상세페이지
+        function detail(id) {
+            $('#detail_page').empty();
+            $.ajax({
+                type: 'GET',
+                url: `/api/postings/${id}`,
+                success: function (response) {
+                    if (response['id'] == id) {
+                        let id = response['id'];
+                        let title = response['title']
+                        let username = response['username'];
+                        let contents = response['contents'];
+                        detailPage(id, title, username, contents);
+                        onClick_detail()
+                    }
+                }
+            })
+        }
+
+        function detailPage(id, title, username, contents) {
+            // 1. HTML 태그를 만듭니다.
+            let tempHtml = `<div>
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title" id="${id}-title">${title}</p>
+                                    <button class="delete" onclick="offClick_detail()" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <p><h6 id="${id}-username">작성자 : ${username}</h6></p>
+                                    <br>
+                                    <p><h4 id="${id}-contents">${contents}</h4></p>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button class="button is-cancel" onclick="offClick_detail()">닫기</button>
+                                </footer>
+                            </div>`
+            // 2. #detail_page에 HTML을 붙인다.
+            $('#detail_page').append(tempHtml);
+        }
+
+        function editOne(id) {
+            $('#edit_page').empty();
+            $.ajax({
+                type: 'GET',
+                url: `/api/postings/${id}`,
+                success: function (response) {
+                    if (response['id'] == id) {
+                        let id = response['id'];
+                        let title = response['title']
+                        let username = response['username'];
+                        let password = response['password'];
+                        let contents = response['contents'];
+                        editPage(id, title, username, password, contents);
+                        onClick_edit()
+                    }
+                }
+            })
+        }
+
+
+        function editPage(id, title, username, password, contents) {
+            // 1. HTML 태그를 만듭니다.
+            let tempHtml = `
+                <header class="modal-card-head">
+                    <p class="modal-card-title">포스팅 수정하기</p>
+                    <button class="delete" aria-label="close" onclick="offClick_edit()"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">제목</label>
+                        <div class="control">
+                            <input class="input" id="${id}-title" type="text" value="${title}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">작성자</label>
+                        <div class="control">
+                            <input class="input" id="${id}-username" type="text" value="${username}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">비밀번호</label>
+                        <div class="control">
+                            <input class="input" id="${id}-password" type="password" placeholder="비밀번호를 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">내용</label>
+                        <div class="control">
+                            <textarea class="textarea" id="${id}-contents">${contents}</textarea>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-update" id="${id}-update" onclick="updateOne('${id}')">수정</button>
+                    <button class="button is-delete" id="${id}-delete" onclick="deleteOne('${id}')">삭제</button>
+                    <button class="button is-cancel" onclick="offClick_edit()">취소</button>
+                </footer>`
+
+            $('#edit_page').append(tempHtml);
+        }
+
+        // 메모를 삭제합니다.
+        function deleteOne(id) {
+            $.ajax({
+                type: "DELETE",
+                url: `/api/postings/${id}`,
+                success: function (response) {
+                    alert('삭제되었습니다.');
+                    window.location.reload();
+                }
+            })
+        }
+
+        // 메모를 수정합니다.
+        function updateOne(id) {
+            // 1. 작성한 내용 가져오기
+            let title = $(`#${id}-title`).val().trim();
+            let username = $(`#${id}-username`).val().trim();
+            let password = $(`#${id}-password`).val().trim();
+            let contents = $(`#${id}-contents`).val().trim();
+
+
+            let data = {'title': title, 'username': username, 'password': password, 'contents': contents};
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/postings/${id}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지가 성공적으로 수정되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+                <div class="table100-head">
+                    <table>
+                        <thead>
+                        <tr class="row100 head">
+                            <th class="cell100 column1">제목</th>
+                            <th class="cell100 column2">작성자명</th>
+                            <th class="cell100 column3">작성날짜</th>
+                            <th class="cell100 column4">편집</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="table100-body js-pscroll" id="posting_list">
+
+                </div>
+            </div>
+            <div>
+                <button class="button" id="modal_btn">글쓰기</button>
+            </div>
+        </div>
+
+        <!-- 글쓰기 모달-->
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">포스팅 작성하기</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">제목</label>
+                        <div class="control">
+                            <input class="input" id="title" type="text" placeholder="제목을 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">작성자</label>
+                        <div class="control">
+                            <input class="input" id="username" type="text" placeholder="이름을 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">비밀번호</label>
+                        <div class="control">
+                            <input class="input" id="password" type="password" placeholder="비밀번호를 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">내용</label>
+                        <div class="control">
+                            <textarea class="textarea" id="contents" placeholder="내용을 입력해주세요"></textarea>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button onclick="writePost()" class="button is-success">작성 완료</button>
+                    <button class="button is-cancel">취소</button>
+                </footer>
+            </div>
+        </div>
+        <!-- detail 모달-->
+        <div class="modal" id="modal_detail" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-card" id="detail_page">
+
+            </div>
+        </div>
+        <!-- edit 모달-->
+        <div class="modal" id="modal_edit" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-card" id="edit_page">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
