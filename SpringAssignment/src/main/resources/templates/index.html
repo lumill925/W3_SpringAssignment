@@ -9,8 +9,6 @@
     <!-- Bulma CSS 링크 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
-    <link rel="stylesheet" href="./style.css">
-
     <title>항해99 블로그</title>
 
     <style>
@@ -390,13 +388,13 @@
                     <div class="field">
                         <label class="label">제목</label>
                         <div class="control">
-                            <input class="input" id="${id}-title" type="text" value="${title}">
+                            <input class="edit_title" id="${id}-title" type="text" value="${title}">
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">작성자</label>
                         <div class="control">
-                            <input class="input" id="${id}-username" type="text" value="${username}">
+                            <input class="edit_username" id="${id}-username" type="text" value="${username}">
                         </div>
                     </div>
                     <div class="field">
@@ -436,8 +434,8 @@
         // 메모를 수정합니다.
         function updateOne(id) {
             // 1. 작성한 내용 가져오기
-            let title = $(`#${id}-title`).val().trim();
-            let username = $(`#${id}-username`).val().trim();
+            let title = $(`.edit_title`).val().trim();
+            let username = $(`.edit_username`).val().trim();
             let password = $(`#${id}-password`).val().trim();
             let contents = $(`#${id}-contents`).val().trim();
 
