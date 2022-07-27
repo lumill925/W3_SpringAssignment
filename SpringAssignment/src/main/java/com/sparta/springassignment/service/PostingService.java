@@ -25,8 +25,8 @@ public class PostingService {
         return posting.getId();
     }
 
-//    public boolean PasswordCheck(Long id, @RequestBody PostingRequestDto requestDto) {
-//        Posting posting = postingRepository.findById(id).get();
-//        return requestDto.getPassword().equals(posting.getPassword());
-//    }
+    public boolean passwordCheck(Long id, @RequestBody PostingRequestDto requestDto) {
+        Posting posting = postingRepository.findById(id).get();
+        return requestDto.getPassword().equals(posting.getPassword());
+    }
 }

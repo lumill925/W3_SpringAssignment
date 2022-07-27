@@ -4,7 +4,6 @@ import com.sparta.springassignment.domain.Posting;
 import com.sparta.springassignment.domain.PostingRepository;
 import com.sparta.springassignment.domain.PostingRequestDto;
 import com.sparta.springassignment.service.PostingService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,15 +36,24 @@ public class PostingController {
     }
 
     @DeleteMapping("/api/postings/{id}")
-    public Long delete(@PathVariable Long id) {
-            postingRepository.deleteById(id);
-            return id;
+    public Long delete(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
 
+        if (postingService.passwordCheck(id, requestDto)) {
+            postingRepository.deleteById(id);
+        } else {
+            return 0L;
+        }
+        return id;
     }
 
     @PutMapping("/api/postings/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
-        postingService.update(id, requestDto);
+
+        if (postingService.passwordCheck(id, requestDto)) {
+            postingService.update(id, requestDto);
+        } else {
+            return 0L;
+        }
         return id;
     }
 

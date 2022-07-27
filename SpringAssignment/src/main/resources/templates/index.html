@@ -9,7 +9,7 @@
     <!-- Bulma CSS 링크 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
-    <title>항해99 블로그</title>
+    <title>Spring Assignment Blog</title>
 
     <style>
 
@@ -21,19 +21,16 @@
             text-decoration: none;
         }
 
-        /* ------------------------------------ */
-
         ul, li {
             margin: 0px;
             list-style-type: none;
         }
 
-
-        /* ------------------------------------ */
         input {
             display: block;
             outline: none;
             border: none;
+            vertical-align: middle;
         }
 
         textarea {
@@ -46,7 +43,6 @@
             border-color: transparent !important;
         }
 
-        /* ------------------------------------ */
         button {
             outline: none !important;
             border: none;
@@ -61,41 +57,6 @@
             border: none !important;
         }
 
-        #banner {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ------------------------------------*/
-
-        #header-title-login-user {
-            margin: auto 0;
-        }
-
-        #logout-win {
-            margin-top: 30px;
-            display: flex;
-            justify-content: right;
-        }
-
-        #login-win {
-            margin-top: 30px;
-            display: flex;
-            justify-content: right;
-        }
-
-        #signup-btn {
-            margin-left: 10px;
-        }
-
-        #my_form {
-            display: block;
-            margin-left: 10px;
-        }
-
-        /*//////////////////////////////////////////////////////////////////
-        [ Table ]*/
-
         .limiter {
             width: 1000px;
             margin: 0 auto;
@@ -109,12 +70,9 @@
 
         .wrap-table100 {
             margin: 10px 0 100px;
-            /*min-width: 70%;*/
 
         }
 
-        /*//////////////////////////////////////////////////////////////////
-        [ Table ]*/
         .table100 {
             background-color: #fff;
         }
@@ -145,10 +103,6 @@
             width: 10%;
         }
 
-
-
-
-
         .table100-head th {
             padding-top: 18px;
             padding-bottom: 18px;
@@ -159,24 +113,14 @@
             padding-bottom: 16px;
         }
 
-        /*==================================================================
-        [ Fix header ]*/
-
-
         .table100-head {
             width: 100%;
-            /*top: 0;*/
-            /*left: 0;*/
         }
 
         .table100-body {
             max-height: 585px;
             overflow: auto;
         }
-
-
-        /*==================================================================
-        [ Ver1 ]*/
 
         .table100.ver1 th {
             font-size: 18px;
@@ -196,8 +140,6 @@
             background-color: #f8f6ff;
         }
 
-        /*---------------------------------------------*/
-
         .table100.ver1 {
             border-radius: 10px;
             overflow: hidden;
@@ -207,7 +149,6 @@
             -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
             -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
         }
-
 
         #modal_btn {
             width: 100px;
@@ -219,7 +160,6 @@
     <script>
 
         $(document).ready(function () {
-            // HTML 문서를 로드할 때마다 실행합니다.
             getMessages();
         })
 
@@ -230,31 +170,33 @@
         }
 
         function onClick() {
-            document.querySelector('.modal').style.display ='block';
+            document.querySelector('.modal').style.display = 'block';
         }
+
         function offClick() {
             document.querySelector('.modal').style.display = 'none';
             window.location.reload();
         }
+
         function onClick_detail() {
             document.getElementById('modal_detail').style.display = 'block';
         }
+
         function offClick_detail() {
             document.getElementById('modal_detail').style.display = 'none';
         }
+
         function onClick_edit() {
             document.getElementById('modal_edit').style.display = 'block';
         }
+
         function offClick_edit() {
             document.getElementById('modal_edit').style.display = 'none';
         }
 
 
-
         // 메모를 불러와서 보여줍니다.
         function getMessages() {
-            // $('#posting_list').empty();
-            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
             $.ajax({
                 type: 'GET',
                 url: '/api/postings',
@@ -271,9 +213,8 @@
                 }
             })
         }
-        // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
+
         function addHTML(id, title, username, modifiedAt) {
-            // 1. HTML 태그를 만듭니다.
             let tempHtml = `<table>
                                 <tr class="row100 body" id="${id}-list">
                                     <td class="cell100 column1" style="width: 33%" id="${id}-title"><a onclick="detail(${id})" id="detail_link">${title}</a></td>
@@ -284,32 +225,26 @@
                                     </td>
                                 </tr>
                           </table>`
-            // 2. #cards-box 에 HTML을 붙인다.
             $('#posting_list').append(tempHtml);
         }
 
 
         // 메모를 생성합니다.
         function writePost() {
-            // 1. 작성한 내용 가져오기
             let title = $('#title').val();
             let username = $('#username').val();
             let password = $('#password').val();
             let contents = $('#contents').val();
 
-            //2. 입력값 확인
-            if (title == '' || username == '' || password == '' || contents =='') {
-                // alert 창 띄우기
+            if (title == '' || username == '' || password == '' || contents == '') {
                 alert("내용을 입력해주세요")
                 return;
             }
-            // 3. 전달할 data JSON으로
             let data = {'title': title, 'username': username, 'password': password, 'contents': contents};
-            // 4. POST /api/postings 에 data를 전달
             $.ajax({
                 type: "POST",
                 url: "/api/postings",
-                contentType: "application/json", // JSON 형식으로 전달함을 알리기
+                contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (response) {
                     alert('메시지가 성공적으로 작성되었습니다.');
@@ -338,7 +273,6 @@
         }
 
         function detailPage(id, title, username, contents) {
-            // 1. HTML 태그를 만듭니다.
             let tempHtml = `<div>
                                 <header class="modal-card-head">
                                     <p class="modal-card-title" id="${id}-title">${title}</p>
@@ -353,7 +287,6 @@
                                     <button class="button is-cancel" onclick="offClick_detail()">닫기</button>
                                 </footer>
                             </div>`
-            // 2. #detail_page에 HTML을 붙인다.
             $('#detail_page').append(tempHtml);
         }
 
@@ -378,7 +311,6 @@
 
 
         function editPage(id, title, username, password, contents) {
-            // 1. HTML 태그를 만듭니다.
             let tempHtml = `
                 <header class="modal-card-head">
                     <p class="modal-card-title">포스팅 수정하기</p>
@@ -394,13 +326,13 @@
                     <div class="field">
                         <label class="label">작성자</label>
                         <div class="control">
-                            <input class="edit_username" id="${id}-username" type="text" value="${username}">
+                            <input class="edit_username" id="${id}-username" type="text" value="${username}" readonly>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">비밀번호</label>
                         <div class="control">
-                            <input class="input" id="${id}-password" type="password" placeholder="비밀번호를 입력해주세요">
+                            <input class="edit_password" id="${id}-password" type="password" placeholder="비밀번호를 입력해주세요">
                         </div>
                     </div>
                     <div class="field">
@@ -421,22 +353,29 @@
 
         // 메모를 삭제합니다.
         function deleteOne(id) {
+            let password = $('.edit_password').val();
+            let data = {'password': password}
             $.ajax({
                 type: "DELETE",
                 url: `/api/postings/${id}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
                 success: function (response) {
-                    alert('삭제되었습니다.');
-                    window.location.reload();
+                    if (response > 0) {
+                        alert('포스트가 삭제되었습니다.');
+                        window.location.reload();
+                    } else {
+                        alert("비밀번호를 확인해주세요.");
+                    }
                 }
             })
         }
 
         // 메모를 수정합니다.
         function updateOne(id) {
-            // 1. 작성한 내용 가져오기
             let title = $(`.edit_title`).val().trim();
             let username = $(`.edit_username`).val().trim();
-            let password = $(`#${id}-password`).val().trim();
+            let password = $(`.edit_password`).val().trim();
             let contents = $(`#${id}-contents`).val().trim();
 
 
@@ -448,8 +387,13 @@
                 contentType: "application/json",
                 data: JSON.stringify(data),
                 success: function (response) {
-                    alert('메시지가 성공적으로 수정되었습니다.');
-                    window.location.reload();
+                    if (response > 0) {
+                        alert('포스트가 수정되었습니다.');
+                        window.location.reload();
+                    } else {
+                        alert('비밀번호를 확인해주세요.')
+                    }
+
                 }
             });
         }
@@ -539,7 +483,6 @@
         </div>
     </div>
 </div>
-
 
 
 </body>
