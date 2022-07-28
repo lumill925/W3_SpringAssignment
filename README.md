@@ -66,8 +66,8 @@
 
 | Method | URL | Request | Response |
 | --- | --- | --- | --- |
-| GET | /api/postings |  |  |
-| GET | /api/postings/{id} | |  |
+| GET | /api/postings | {'id':'id', 'title':'title', 'username':'username', 'contents':'contents', 'modifiedAt', 'modifiedAt'} | {'id':'id', 'title':'title', 'username':'username', 'contents':'contents', 'modifiedAt', 'modifiedAt'} |
+| GET | /api/postings/{id} | {'id':'id', 'title':'title', 'username':'username', 'contents':'contents'} | {'id':'id', 'title':'title', 'username':'username', 'contents':'contents'} |
 | POST | /api/postings | {'title':'title', 'username':'username', 'password':'password', 'contents':'contents'} | {'id':'id', 'title':'title', 'username':'username', 'password':'password', 'contents':'contents', 'createdAt':'createdAt', 'modifiedAt', 'modifiedAt'} |
 | DELETE | /api/postings/{id} | {'id':'id', 'password':'password'} | {'id':'id'} |
 | PUT | /api/postings/{id} | {'id':'id', 'title':'title', 'username':'username', 'password':'password', 'contents':'contents'} | {'id':'id', 'title':'title', 'username':'username', 'password':'password', 'contents':'contents', 'createdAt':'createdAt', 'modifiedAt', 'modifiedAt'} |
