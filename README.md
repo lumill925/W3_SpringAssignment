@@ -66,11 +66,14 @@
  
  ### API 명세서 작성 가이드라인을 검색하여 직접 작성한 명세서와 비교해보세요!
 
+### API 명세서 작성 가이드라인을 검색하여 직접 작성한 명세서와 비교해보세요!
+
 | Method | URL | Request | Response |
 | --- | --- | --- | --- |
 | GET | /api/postings |  |  |
 | GET | /api/postings/{id} | |  |
-| POST | /api/postings | {'title':'title', 'username':'username', 'password':'password', 'contents':'contents'} | {'title':'title', 'username':'username', 'password':'password', 'contents':'contents', 'createdAt':'createdAt', 'modifiedAt', 'modifideAt'} |
-| DELETE | /api/postings/{id} |  |  |
-| PUT | /api/postings/{id} |  |  |
+| POST | /api/postings | {'title':'title', 'username':'username', 'password':'password', 'contents':'contents'} | {'id':'id', 'title':'title', 'username':'username', 'password':'password', 'contents':'contents', 'createdAt':'createdAt', 'modifiedAt', 'modifiedAt'} |
+| DELETE | /api/postings/{id} | {'id':'id', 'password':'password'} | {'id':'id'} |
+| PUT | /api/postings/{id} | {'id':'id', 'title':'title', 'username':'username', 'password':'password', 'contents':'contents'} | {'id':'id', 'title':'title', 'username':'username', 'password':'password', 'contents':'contents', 'createdAt':'createdAt', 'modifiedAt', 'modifiedAt'} |
+
 
