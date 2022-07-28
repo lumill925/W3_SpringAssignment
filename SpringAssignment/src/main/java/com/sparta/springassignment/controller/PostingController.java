@@ -1,7 +1,7 @@
 package com.sparta.springassignment.controller;
 
 import com.sparta.springassignment.domain.Posting;
-import com.sparta.springassignment.domain.PostingRepository;
+import com.sparta.springassignment.repository.PostingRepository;
 import com.sparta.springassignment.domain.PostingRequestDto;
 import com.sparta.springassignment.service.PostingService;
 import lombok.RequiredArgsConstructor;
@@ -36,25 +36,13 @@ public class PostingController {
     }
 
     @DeleteMapping("/api/postings/{id}")
-    public Long delete(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
-
-        if (postingService.passwordCheck(id, requestDto)) {
-            postingRepository.deleteById(id);
-        } else {
-            return 0L;
-        }
-        return id;
+    public boolean delete(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
+        return postingService.deleteCheck(id, requestDto);
     }
 
     @PutMapping("/api/postings/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
-
-        if (postingService.passwordCheck(id, requestDto)) {
-            postingService.update(id, requestDto);
-        } else {
-            return 0L;
-        }
-        return id;
+    public boolean update(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
+        return postingService.updateCheck(id, requestDto);
     }
 
 

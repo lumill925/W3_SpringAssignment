@@ -2,6 +2,7 @@ package com.sparta.springassignment.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.*;
 
@@ -43,6 +44,7 @@ public class Posting extends Timestamped {
         this.password = requestDto.getPassword();
         this.contents = requestDto.getContents();
     }
+
 
 
 

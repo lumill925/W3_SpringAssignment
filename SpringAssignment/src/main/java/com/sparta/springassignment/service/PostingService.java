@@ -1,7 +1,7 @@
 package com.sparta.springassignment.service;
 
 import com.sparta.springassignment.domain.Posting;
-import com.sparta.springassignment.domain.PostingRepository;
+import com.sparta.springassignment.repository.PostingRepository;
 import com.sparta.springassignment.domain.PostingRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,26 @@ public class PostingService {
         return posting.getId();
     }
 
-    public boolean passwordCheck(Long id, @RequestBody PostingRequestDto requestDto) {
+//    public boolean passwordCheck(Long id, @RequestBody PostingRequestDto requestDto) {
+//        Posting posting = postingRepository.findById(id).get();
+//        return requestDto.getPassword().equals(posting.getPassword());
+//    }
+
+    public boolean updateCheck(Long id, @RequestBody PostingRequestDto requestDto) {
         Posting posting = postingRepository.findById(id).get();
-        return requestDto.getPassword().equals(posting.getPassword());
+        if(requestDto.getPassword().equals(posting.getPassword())) {
+            update(id, requestDto);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteCheck(Long id, @RequestBody PostingRequestDto requestDto) {
+        Posting posting = postingRepository.findById(id).get();
+        if(requestDto.getPassword().equals(posting.getPassword())) {
+            postingRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
