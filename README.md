@@ -30,5 +30,37 @@
        - Rule6. 기본적으로 명사를 사용하지만, 컨트롤 자원을 의미하는 경우 동사를 허용한다.
        - Rule7. 리소스 간 연관 관계가 있는 경우 {}를 통해 처리한다.
   
-   URI규칙을 지키면서 설계하려고 노력했다. CRUD중 Create을 제외한 나머지는 기본 키 값인 id를 받아 처리했기 때문에 동일한 path를 적용하였는데 좀 더 확실하게 나눌수 있는 방법이 있지 않을까 하는 생각이 들었다.
+   URI규칙을 지키면서 설계하려고 노력했다. CRUD중 Create을 제외한 나머지는 기본 키 값인 id를 받아 처리했기 때문에 동일한 path를 적용하였는데 좀 더 확실하게 나눌수 있는 방법이 있지 않을까 하는 생각이 들었다. REST는 표준이 없는 만큼 아무것도 모르는 사람이 봤을 때도 바로 이해할 수 있도록 설계단계에 신경을 써야할 것 같다.
+   
+### 적절한 관심사 분리를 적용하였나요? (Controller, Repository, Service)
+
+    - Controller
+      Controller에서는 @Controller에 @ResponseBody가 추가된 @RestController를 사용하였다. 이는 JSON 형태로 객체 데이터를 반환한다. 그리고 @GetMapping, @PostMapping, @PutMapping, @DeleteMapping으로 각각의 CRUD 기능을 구현하였다.
+    - Repository
+      Repository에서는 JPA를 사용해 DB에 접근할 수 있도록 하였다. 
+    - Service
+      Service에서는 비즈니스 로직 수행을 위한 것들이 포함되어있다. Controller에 들어온 요청 수행에 도움을 준다.
+
+### 작성한 코드에서 빈(Bean)을 모두 찾아보세요!
+
+@Entity,
+@NoArgsConstructor,
+@Getter,
+@Column,
+@MappedSuperclass,
+@EntityListeners,
+@CreatedDate,
+@LastModifiedDate,
+@RequiredArgsConstructor,
+@RestController,
+@PostMapping,
+@GetMapping,
+@DeleteMapping,
+@PutMapping,
+@Service,
+@Transactional,
+@EnableJpaAuditing,
+@SpringBootApplication
+
+### API 명세서 작성 가이드라인을 검색하여 직접 작성한 명세서와 비교해보세요!
  
