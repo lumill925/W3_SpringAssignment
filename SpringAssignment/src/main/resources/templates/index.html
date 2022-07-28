@@ -320,25 +320,25 @@
                     <div class="field">
                         <label class="label">제목</label>
                         <div class="control">
-                            <input class="edit_title" id="${id}-title" type="text" value="${title}">
+                            <input class="input" id="${id}-edittitle" type="text" value="${title}">
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">작성자</label>
                         <div class="control">
-                            <input class="edit_username" id="${id}-username" type="text" value="${username}" readonly>
+                            <input class="input" id="${id}-editusername" type="text" value="${username}" readonly>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">비밀번호</label>
                         <div class="control">
-                            <input class="edit_password" id="${id}-password" type="password" placeholder="비밀번호를 입력해주세요">
+                            <input class="input" id="${id}-editpassword" type="password" placeholder="비밀번호를 입력해주세요">
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">내용</label>
                         <div class="control">
-                            <textarea class="textarea" id="${id}-contents">${contents}</textarea>
+                            <textarea class="textarea" id="${id}-editcontents">${contents}</textarea>
                         </div>
                     </div>
                 </section>
@@ -353,7 +353,7 @@
 
         // 메모를 삭제합니다.
         function deleteOne(id) {
-            let password = $('.edit_password').val();
+            let password = $(`#${id}-editpassword`).val();
             let data = {'password': password}
             $.ajax({
                 type: "DELETE",
@@ -373,10 +373,10 @@
 
         // 메모를 수정합니다.
         function updateOne(id) {
-            let title = $(`.edit_title`).val().trim();
-            let username = $(`.edit_username`).val().trim();
-            let password = $(`.edit_password`).val().trim();
-            let contents = $(`#${id}-contents`).val().trim();
+            let title = $(`#${id}-edittitle`).val().trim();
+            let username = $(`#${id}-editusername`).val().trim();
+            let password = $(`#${id}-editpassword`).val().trim();
+            let contents = $(`#${id}-editcontents`).val().trim();
 
 
             let data = {'title': title, 'username': username, 'password': password, 'contents': contents};
