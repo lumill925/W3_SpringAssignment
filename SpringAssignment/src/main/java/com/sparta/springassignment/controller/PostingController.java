@@ -35,6 +35,28 @@ public class PostingController {
         return posting;
     }
 
+//    @DeleteMapping("/api/postings/{id}")
+//    public Long delete(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
+//
+//        if (postingService.passwordCheck(id, requestDto)) {
+//            postingRepository.deleteById(id);
+//        } else {
+//            return 0L;
+//        }
+//        return id;
+//    }
+//
+//    @PutMapping("/api/postings/{id}")
+//    public Long update(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
+//
+//        if (postingService.passwordCheck(id, requestDto)) {
+//            postingService.update(id, requestDto);
+//        } else {
+//            return 0L;
+//        }
+//        return id;
+//    }
+
     @DeleteMapping("/api/postings/{id}")
     public boolean delete(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
         return postingService.deleteCheck(id, requestDto);
@@ -44,6 +66,7 @@ public class PostingController {
     public boolean update(@PathVariable Long id, @RequestBody PostingRequestDto requestDto) {
         return postingService.updateCheck(id, requestDto);
     }
+
 
 
 

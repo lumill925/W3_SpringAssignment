@@ -221,7 +221,7 @@
                                     <td class="cell100 column2" style="width: 18%" id="${id}-username">${username}</td>
                                     <td class="cell100 column4" style="width: 22%" id="${id}-createdAt">${modifiedAt}</td>
                                     <td class="cell100 column5" style="width: 10%">
-                                    <button class="button is-edit" id="${id}-edit" onclick="editOne('${id}')">편집</button>
+                                    <button class="button is-edit" id="${id}-edit" onclick="editOne(${id})">편집</button>
                                     </td>
                                 </tr>
                           </table>`
@@ -296,7 +296,7 @@
                 type: 'GET',
                 url: `/api/postings/${id}`,
                 success: function (response) {
-                    if (response['id'] == id) {
+                    if (response['id'] === id) {
                         let id = response['id'];
                         let title = response['title']
                         let username = response['username'];
@@ -326,7 +326,7 @@
                     <div class="field">
                         <label class="label">작성자</label>
                         <div class="control">
-                            <input class="input" id="${id}-editusername" type="text" value="${username}" readonly>
+                            <input class="input" id="${id}-editusername" type="text" value="${username}">
                         </div>
                     </div>
                     <div class="field">
